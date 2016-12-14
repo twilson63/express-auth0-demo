@@ -6,12 +6,11 @@ const jwt = require('express-jwt')
 const app = express()
 
 const checkJwt = jwt({
-  secret: new Buffer(process.env.AUTH0_SECRET, 'base64')
+  secret: process.env.AUTH0_SECRET
 })
 
-
-app.get('/api', checkJwt, (req, res) => {
-  res.send({message: 'you are authorized!'})
+app.get('/protected', checkJwt, (req, res) => {
+  res.send({message: "you are authorized"})
 })
 
 app.get('/', (req, res) => {
@@ -19,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 if (!module.parent) {
-  app.listen(process.env.PORT || 3000)
+  app.listen(process.env.PORT || 4000)
 }
 
 module.exports = app
